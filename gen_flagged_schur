@@ -16,3 +16,21 @@ def s(l,b):
   m=len(l)
   A=matrix(m,m,lambda i, j: f(l,b,i,j))
   return A.determinant()
+
+def aver(l,m):
+  n=[]
+  L=len(l)
+  for i in range(L):
+    n.append((l[i]+m[i])/2)
+  return n
+
+def check(l,m,b):
+  a=aver(l,m)
+  poly=s(a,b)^2-s(l,b)*s(m,b)
+  return poly
+  
+  
+l=[3,2,1]
+m=[5,2,1]
+b=[2,2,3]
+check(l,m,b)
