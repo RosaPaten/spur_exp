@@ -27,7 +27,11 @@ def aver(l,m):
 def check(l,m,b):
   a=aver(l,m)
   poly=s(a,b)^2-s(l,b)*s(m,b)
-  return poly
+  coef=poly.coefficients()
+  for i in coef:
+    if i<0:
+      return False
+  return True
   
   
 l=[3,2,1]
