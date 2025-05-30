@@ -1,1 +1,37 @@
+#### Generates Flagged Schur Polynomials
+Sym = SymmetricFunctions(QQ)
+H = Sym.homogeneous()
 
+def f(l,b,i,j):
+  if l[i]-i+j>=0:
+    if b[i]>1:
+      return H[l[i]-i+j].expand(b[i])
+    else:
+      R=PolynomialRing(QQ, 2, 'x')
+      x=R.gens()
+      return x[0]^(l[i]-i+j)
+  else:
+    return 0
+
+def s(l,b):
+  m=len(l)
+  A=matrix(m,m,lambda i, j: f(l,b,i,j))
+  return A.determinant()
+
+def aver(l,m):
+  n=[]
+  L=len(l)
+  for i in range(L):
+    n.append((l[i]+m[i])/2)
+  return n
+
+#writes difference in key basis
+#
+def check(l,m,b):
+  a=aver(l,m)
+  poly=s(a,b)^2-s(l,b)*s(m,b)
+  coef=poly.coefficients()
+  for i in coef:
+    if i<0:
+      return False
+  return True
