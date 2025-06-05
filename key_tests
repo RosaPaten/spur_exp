@@ -4,18 +4,18 @@ H = Sym.homogeneous()
 R=PolynomialRing(QQ, 3,'x')
 x=R.gens()
     
-def f(l,b,i,j):
+def f(l,m,b,i,j):
   if l[i]-i+j>=0:
     if b[i]>1:
-      return H[l[i]-i+j].expand(b[i])
+      return H[l[i]-m[j]-i+j].expand(b[i])
     else:
-      return x[0]^(l[i]-i+j)
+      return x[0]^(l[i]-m[j]-i+j)
   else:
     return 0
 
-def s(l,b):
+def s(l,m,b):
   m=len(l)
-  A=matrix(m,m,lambda i, j: f(l,b,i,j))
+  A=matrix(m,m,lambda i, j: f(l,m,b,i,j))
   return A.determinant()
 
 def aver(l,m):
@@ -28,9 +28,10 @@ def aver(l,m):
 #writes difference in key basis
 k = KeyPolynomials(R, Compositions())
 
-def check(l,m,b):
-  a=aver(l,m)
-  poly=s(a,b)^2-s(l,b)*s(m,b)
+def check(l_1,m_1,l_2,m_2,b):
+  a_1=aver(l_1,l_2)
+  a_2=aver(m_1,m_2)
+  poly=s(a_1,a_2,b)^2-s(l_1,m_1,b)*s(l_2,m_2,b)
   poly=k.from_polynomial(poly)
   coef=poly.coefficients()
   for i in coef:
@@ -38,8 +39,4 @@ def check(l,m,b):
       return False
   return True
 
-l=[5,2,1]
-m=[5,4,1]
-b=[2,3,3]
 
-check(l,m,b)
