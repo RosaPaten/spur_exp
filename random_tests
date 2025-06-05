@@ -1,0 +1,13 @@
+R=PolynomialRing(QQ,3,'z')
+z=R.gens()
+k = KeyPolynomials(R)
+Sym = SymmetricFunctions(QQ)
+H = Sym.homogeneous()
+#f = (z[0]^3)*(z[1])+(z[0]^2)*(z[1]^2)+(z[0])*(z[1]^3)+(z[0]^3)*z[2]+z[0]^2*z[1]^2+z[0]^2*z[1]*z[2]+z[0]^2*z[2]^2+z[0]^2*z[1]*z[2]+z[0]*z[1]^2*z[2]+z[0]*z[1]*z[2]^2
+#f=k.from_polynomial(f)
+#print(k[3,1,0].expand())
+
+#g=(z[0]+z[1])*((z[0]^3+z[1]^3+z[0]^2*z[1]+z[1]^2*z[0])*(z[0]+z[1]+z[2])-(z[0]^4+z[1]^4+z[0]^3*z[1]+z[1]^3*z[0]))
+g=H[1].expand(1)*(H[1].expand(1)*H[2].expand(3)-H[3].expand(1))
+g=k.from_polynomial(g)
+print(g)
