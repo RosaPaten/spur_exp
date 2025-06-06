@@ -5,7 +5,7 @@ R=PolynomialRing(QQ, 3,'x')
 x=R.gens()
     
 def f(l,m,b,i,j):
-  if l[i]-i+j>=0:
+  if l[i]-l[j]-i+j>=0:
     if b[i]>1:
       return H[l[i]-m[j]-i+j].expand(b[i])
     else:
@@ -14,8 +14,8 @@ def f(l,m,b,i,j):
     return 0
 
 def s(l,m,b):
-  m=len(l)
-  A=matrix(m,m,lambda i, j: f(l,m,b,i,j))
+  N=len(l)
+  A=matrix(N,N,lambda i, j: f(l,m,b,i,j))
   return A.determinant()
 
 def aver(l,m):
@@ -34,9 +34,17 @@ def check(l_1,m_1,l_2,m_2,b):
   poly=s(a_1,a_2,b)^2-s(l_1,m_1,b)*s(l_2,m_2,b)
   poly=k.from_polynomial(poly)
   coef=poly.coefficients()
+  print(coef)
   for i in coef:
     if i<0:
       return False
   return True
+
+l_1=[4,4,4]
+m_1=[3,3,2]
+l_2=[6,4,2]
+m_2=[5,3,2]
+b=[1,2,3]
+check(l_1,m_1,l_2,m_2,b)
 
 
