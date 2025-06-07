@@ -7,12 +7,12 @@ R=PolynomialRing(QQ, 3,'x')
 x=R.gens()
     
 def f(l,m,b,i,j):
-  if l[i]-l[j]-i+j>0:
+  if l[i]-m[j]>0:
     if b[i]>1:
-      return H[l[i]-m[j]-i+j].expand(b[i])
+      return H[l[i]-m[j]].expand(b[i])
     else:
-      return x[0]^(l[i]-m[j]-i+j)
-  if l[i]-l[j]-i+j==0:
+      return x[0]^(l[i]-m[j])
+  if l[i]-m[j]==0:
       return 1
   else:
       return 0
