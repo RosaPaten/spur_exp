@@ -22,7 +22,7 @@ def A(l,m,b):
 
 ###given w,v\in Sym(n), computes f_w(v)
 H=HeckeAlgebraSymmetricGroupT(QQ,3,1)
-S=SymmmetricGroup(3)
+G=SymmetricGroup(3)
 
 #iterates through red, computes element prod (t_i-1) in the group algebra
 #then iterates through product to find coefficient on T_w
@@ -32,15 +32,10 @@ def f(w,v):
   prod=1
   for i in red:
     prod=(H.t(i)-1)*prod
+  print(prod)
   p=permutation.to_standard(w)
+  print(p)
   return prod.coefficient(p)
 
-
-
-    
-  
-  
-  
-  
-  
-  
+w=G([1,2,3])
+v=G([3,2,1])
