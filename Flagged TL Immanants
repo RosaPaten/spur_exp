@@ -26,16 +26,22 @@ G=SymmetricGroup(3)
 
 #iterates through red, computes element prod (t_i-1) in the group algebra
 #then iterates through product to find coefficient on T_w
-#input w,v both as permutations 
-def f(w,v):
+#input w just as a list and v as an element of G
+def F(w,v):
   red=v.reduced_word()
   prod=1
   for i in red:
     prod=(H.t(i)-1)*prod
-  print(prod)
   p=permutation.to_standard(w)
-  print(p)
   return prod.coefficient(p)
 
-w=G([1,2,3])
-v=G([3,2,1])
+def Imm(w,X,n):
+  imm=0
+  for v in G:
+    prod=F(w,v)
+    for i in range(n):
+      prod=prod*X[i][v(i)]
+    imm=imm+prod
+  return imm
+      
+    
