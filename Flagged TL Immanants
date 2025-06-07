@@ -5,6 +5,7 @@ Sym = SymmetricFunctions(QQ)
 H = Sym.homogeneous()
 R=PolynomialRing(QQ, 3,'x')
 k = KeyPolynomials(R)
+SC = Sym.s()
 x=R.gens()
     
 def f(l,m,b,i,j):
@@ -17,6 +18,18 @@ def f(l,m,b,i,j):
       return 1
   else:
       return 0
+
+def g(l,m,i,j):
+    if l[i]-m[j]>0:
+       return H[l[i]-m[j]].expand(3)
+    elif l[i]-m[j]==0:
+      return 1
+    else:
+      return 0
+def genSchur(l,m):
+  N=len(l)
+  A=matrix(N,N,lambda i, j: g(l,m,i,j))
+  return A    
 
 def gen(l,m,b):
   N=len(l)
@@ -73,16 +86,18 @@ def Imm(w,X,n):
 
 l=[4,3,3]
 m=[3,2,1]
-b=[1,2,3]
+b=[2,2,3]
 X=gen(l,m,b)
+print(X)
 w=[1,3,2]
 #v=[3,1,2]
 
 sum=0
 for v in G:
    if v!=G([3,2,1]):
-       sum=sum+Imm(v,X,3)
-print(sum)
+       h=Imm(v,X,3)
+       print(h.)
+print(X.determinant())
 
-#g=k.from_polynomial(g)
+print(SC[3,1].expand(3)+SC[2,1,1].expand(3))
 
