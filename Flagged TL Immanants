@@ -49,8 +49,7 @@ def F(w,v):
   red=v.reduced_word()
   prod=1
   for i in red:
-    prod=Alg((genTL(i)-1)*prod)
-  print(prod)
+    prod=(genTL(i)-1)*prod
   if type(prod)==Integer:
     if S(w)==1:
         return prod
@@ -76,9 +75,14 @@ l=[4,3,3]
 m=[3,2,1]
 b=[1,2,3]
 X=gen(l,m,b)
-w=[1,2,3]
-v=G([1,3,2])
-    
-print(F(w,v))
+w=[1,3,2]
+#v=[3,1,2]
+
+sum=0
+for v in G:
+   if v!=G([3,2,1]):
+       sum=sum+Imm(v,X,3)
+print(sum)
 
 #g=k.from_polynomial(g)
+
