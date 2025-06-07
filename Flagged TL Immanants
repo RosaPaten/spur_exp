@@ -27,7 +27,13 @@ def gen(l,m,b):
 S=SymmetricGroupAlgebra(QQ, 3)
 G=SymmetricGroup(3)
 s=G.simple_reflections()
-Alg=PartitionAlgebra(3,2,QQ)
+Alg=TemperleyLiebAlgebra(3,2,QQ)
+
+def genTL(i):
+    d=[]
+    d.append([i,i+1])
+    d.append([-i,-(i+1)])
+    return Alg(d)
 
 #iterates through red, computes element prod (t_i-1) in the group algebra
 #then iterates through product to find coefficient on T_w
@@ -36,15 +42,18 @@ def F(w,v):
   red=v.reduced_word()
   prod=1
   for i in red:
-    prod=Alg((S(s[i])-1)*prod)
+    prod=Alg((genTL(i)-1)*prod)
   if type(prod)==Integer:
     if S(w)==1:
         return prod
     else:
         return 0
-  print(prod)
   p=Alg(w)
-  return prod.coefficient(p)
+  D=prod._monomial_coefficients
+  for key in D:
+      if Alg(key) == p:
+          return D.get(key)
+  return 0
 
 def Imm(w,X,n):
   imm=0
@@ -62,6 +71,7 @@ X=gen(l,m,b)
 w=[1,2,3]
 v=G([2,3,1])
     
-F(w,v)
+print(F(w,v))
 
 #g=k.from_polynomial(g)
+
