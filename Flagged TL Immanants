@@ -1,3 +1,5 @@
+import sage.combinat.permutation as permutation
+
 ###generates flagged Jacobi-Trudi matrix
 Sym = SymmetricFunctions(QQ)
 H = Sym.homogeneous()
@@ -30,6 +32,12 @@ def f(w,v):
   prod=1
   for i in red:
     prod=(H.t(i)-1)*prod
+  p=permutation.to_standard(w)
+  return prod.coefficient(p)
+
+
+
+    
   
   
   
