@@ -18,33 +18,98 @@ def s(l,m,b):
   A=matrix(N,N,lambda i, j: f(l,m,b,i,j))
   return A.determinant()
 
-def aver(l,m):
+def ceiling(l,m):
   n=[]
   L=len(l)
   for i in range(L):
-    n.append((l[i]+m[i])/2)
+    n.append(((l[i]+m[i])/2).ceil())
   return n
+
+def floor(l,m):
+  n=[]
+  L=len(l)
+  for i in range(L):
+    n.append(((l[i]+m[i])/2).floor())
+  return n
+
+def minn(l,m):
+  n=[]
+  L=len(l)
+  for i in range(L):
+    n.append(min(l[i],m[i]))
+  return n
+
+def maxx(l,m):
+  n=[]
+  L=len(l)
+  for i in range(L):
+    n.append(max(l[i],m[i]))
+  return n
+    
+
 
 #writes difference in key basis
 k = KeyPolynomials(R, Compositions())
 
 def check(l_1,m_1,l_2,m_2,b):
-  a_1=aver(l_1,l_2)
-  a_2=aver(m_1,m_2)
-  poly=s(a_1,a_2,b)^2-s(l_1,m_1,b)*s(l_2,m_2,b)
+  c1=ceiling(l_1,l_2)
+  c2=ceiling(m_1,m_2)
+  f1=floor(l_1,l_2)
+  f2=floor(m_1,m_2)
+  poly=s(c1,c2,b)*s(f1,f2,b)-s(l_1,m_1,b)*s(l_2,m_2,b)
   poly=k.from_polynomial(poly)
   coef=poly.coefficients()
-  print(coef)
   for i in coef:
     if i<0:
       return False
   return True
 
-l_1=[4,4,4]
-m_1=[3,3,2]
-l_2=[6,4,2]
-m_2=[5,3,2]
-b=[1,2,3]
-check(l_1,m_1,l_2,m_2,b)
+def check2(l_1,m_1,l_2,m_2,b):
+  c1=minn(l_1,l_2)
+  c2=minn(m_1,m_2)
+  f1=maxx(l_1,l_2)
+  f2=maxx(m_1,m_2)
+  poly=s(c1,c2,b)*s(f1,f2,b)-s(l_1,m_1,b)*s(l_2,m_2,b)
+  poly=k.from_polynomial(poly)
+  coef=poly.coefficients()
+  for i in coef:
+    if i<0:
+      return False
+  return True
+
+def test(N,flag):
+    for i in range(1,N):
+        for j in range(1,i):
+            for K in range(1,j):
+                for L in range(1,i):
+                    for m in range(1,j):
+                        for n in range(1,K):
+                            l1=[i,j,K]
+                            M1=[L,m,n] 
+                            for i1 in range(1,N):
+                                for j1 in range(1,i1):
+                                    for K1 in range(1,j1):
+                                        for L1 in range(1,i1):
+                                            for m1 in range(1,j1):
+                                                for n1 in range(1,K1):
+                                                    l2=[i1,j1,K1]
+                                                    M2=[L1,m1,n1]
+                                                    val=check2(l1,M1,l2,M2,flag)
+                                                    if val==False:
+                                                        print(-1)
+    return 1
+                                        
+                            
+
+
+#l_1=[4,4,4]
+#m_1=[3,3,2]
+#l_2=[6,4,2]
+#m_2=[5,3,2]
+b=[2,3,3]
+
+#check2(l_1,m_1,l_2,m_2,b)
+
+test(6,b)
 
 
