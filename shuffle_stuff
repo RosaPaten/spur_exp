@@ -20,8 +20,8 @@ def f(i,T):
   #finds rightmost unpaired i
   index=-1
   for j in range(l):
-    if word[l-j-1]==i:
-      index=l-j-1
+    if word[j]==i:
+      index=j
   if index==-1:
     return 0
   count=0
@@ -30,18 +30,14 @@ def f(i,T):
   for j in range(len(T)):
     T[j]=list(T[j])
   T.reverse()
+  print(T)
   for j in range(len(T)):
     for k in range(len(T[j])):
-      if count==l-j-1:
+      if count==index:
         T[j][k]=i+1
+      count=count+1
+  T.reverse()
   return Tableau(T)
-  
-        
-      
-
-  
-          
-
 
 #function to go from shuffle tableau -> tableau
 def phi(T):
