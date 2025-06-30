@@ -3,6 +3,10 @@
 
 #takes SSYT of shape l/m, generates shuffle tableau
 def shuffle(T):
+  shuff=[]
+  for i in range(len(T)):
+    shuff.append([])
+  for i in range(len(T))
 
 #input is a shuffle tableau of shape l*m, returns SSYT of shape l/m
 def tab(T):
@@ -57,9 +61,7 @@ def f(i,T):
     return 0
   count=0
   #converts T to list
-  T=list(T)
-  for j in range(len(T)):
-    T[j]=list(T[j])
+  T=listify(T)
   T.reverse()
   print(T)
   for j in range(len(T)):
