@@ -1,0 +1,60 @@
+####code to test whether algorithms to go from shuffle tableaux -> tableaux 
+
+#lowering operators: input is a shuffle tableau T, integer i
+def F(i,T):
+
+#lowering operators: input is a tableau T, integer i
+def f(i,T):
+  w=T.to_word()
+  word=[]
+  for j in w:
+    word.append(j)
+  l=len(word)
+  #pairs parentheses
+  for j in range(l):
+    if word[j]==i+1:
+      for k in range(j,l):
+        if word[k]==i:
+          word[k]=-1
+          word[j]=-1
+  #finds rightmost unpaired i
+  index=-1
+  for j in range(l):
+    if word[l-j-1]==i:
+      index=l-j-1
+  if index==-1:
+    return 0
+  count=0
+  #converts T to list
+  T=list(T)
+  for j in range(len(T)):
+    T[j]=list(T[j])
+  T.reverse()
+  for j in range(len(T)):
+    for k in range(len(T[j])):
+      if count==l-j-1:
+        T[j][k]=i+1
+  return Tableau(T)
+  
+        
+      
+
+  
+          
+
+
+#function to go from shuffle tableau -> tableau
+def phi(T):
+  t=Tableau([])
+  for i in range(len(T)):
+    t_i=Tableau([list(T[i])])
+    t=t_i.bump_multiply(t)
+  return t
+
+
+
+
+    
+
+
+
