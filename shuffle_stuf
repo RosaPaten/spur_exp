@@ -1,0 +1,31 @@
+####code to test whether algorithms to go from shuffle tableaux -> tableaux 
+
+#lowering operators: input is a shuffle tableau T, integer i
+def F(i,T):
+
+#lowering operators: input is a tableau T, integer i
+def f(i,T):
+  w=T.to_word()
+  word=[]
+  for j in w:
+    word.append(j)
+  for j in word:
+    if j==i:
+      for k 
+
+
+#function to go from shuffle tableau -> tableau
+def phi(T):
+  t=Tableau([])
+  for i in range(len(T)):
+    t_i=Tableau([list(T[i])])
+    t=t_i.bump_multiply(t)
+  return t
+
+
+
+
+    
+
+
+
