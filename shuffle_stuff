@@ -1,7 +1,38 @@
 ####code to test whether algorithms to go from shuffle tableaux -> tableaux 
+#shuffle tableau uses 0s to indicate empty space, is square matrix
+
+#takes SSYT of shape l/m, generates shuffle tableau
+def shuffle(T):
+
+#input is a shuffle tableau of shape l*m, returns SSYT of shape l/m
+def tab(T):
+
+def listify(T):
+  T=list(T)
+  for j in range(len(T)):
+    T[j]=list(T[j])
+  return T
 
 #lowering operators: input is a shuffle tableau T, integer i
 def F(i,T):
+  #first cleans out i-paired is
+  T=listify(T)
+  for j in range(len(T)-2):
+    k in range(len(T[j])):
+      if T[j][k]==i and T[j+2][k]==i+1:
+        T[j][k]=[i]
+        T[j+2][k]=[i+1]
+  tabT=tab(T)
+  tabT=f(i,tabT)
+  tabT=listify(tabT)
+  for j in range(len(tabT)):
+    for k in range(len(T[j])):
+      if type(T[j][k])==list:
+        T[j][k]=T[j][k][0]
+  shuff=shuffle(Tableau(tabT))
+  return shuff
+  
+    
 
 #lowering operators: input is a tableau T, integer i
 def f(i,T):
