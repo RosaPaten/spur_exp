@@ -29,11 +29,13 @@ def f(i,T):
   l=len(word)
   #pairs parentheses
   for j in range(l):
+    sgn=1
     if word[j]==i+1:
       for k in range(j,l):
-        if word[k]==i:
+        if word[k]==i and sgn==1:
           word[k]=-1
           word[j]=-1
+          sgn=-1
   #finds rightmost unpaired i
   index=-1
   for j in range(l):
@@ -73,7 +75,7 @@ def F(i,T):
 
 
 
-#function to go from shuffle tableau -> tableau
+#function to go from shuffle tableau -> tableau. multiplies rows of shuffle tableau. inputs tableau as a tableau
 def phi(T):
   T=clean(T)
   t=Tableau([])
@@ -83,7 +85,8 @@ def phi(T):
   return t
 
 T=Tableau([[None,1],[None,1],[1,2]])
-F(1,T)
+print(f(1,phi(T)))
+print(phi(F(1,T)))
 
 
 
