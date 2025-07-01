@@ -1,42 +1,24 @@
-####code to test whether algorithms to go from shuffle tableaux -> tableaux 
-#shuffle tableau uses 0s to indicate empty space, is square matrix
-
-#takes SSYT of shape l/m, generates shuffle tableau
-def shuffle(T):
-  shuff=[]
-  for i in range(len(T)):
-    shuff.append([])
-  for i in range(len(T))
-
-#input is a shuffle tableau of shape l*m, returns SSYT of shape l/m
-def tab(T):
+####code to test whether algorithms to go from shuffle tableaux -> tableaux are correct/commute with crystal operators
+#tableau use None to indicate emptyspace
 
 def listify(T):
   T=list(T)
   for j in range(len(T)):
     T[j]=list(T[j])
-  return T
+  return T    
 
-#lowering operators: input is a shuffle tableau T, integer i
-def F(i,T):
-  #first cleans out i-paired is
+#returns tableau without None values
+def clean(T):
   T=listify(T)
-  for j in range(len(T)-2):
-    k in range(len(T[j])):
-      if T[j][k]==i and T[j+2][k]==i+1:
-        T[j][k]=[i]
-        T[j+2][k]=[i+1]
-  tabT=tab(T)
-  tabT=f(i,tabT)
-  tabT=listify(tabT)
-  for j in range(len(tabT)):
-    for k in range(len(T[j])):
-      if type(T[j][k])==list:
-        T[j][k]=T[j][k][0]
-  shuff=shuffle(Tableau(tabT))
-  return shuff
+  U=[]
+  for i in range(len(T)):
+    l=[]
+    for j in range(len(T[i])):
+      if T[i][j]!=None:
+        l.append(T[i][j])
+    U.append(l)
+  return U
   
-    
 
 #lowering operators: input is a tableau T, integer i
 def f(i,T):
@@ -63,7 +45,6 @@ def f(i,T):
   #converts T to list
   T=listify(T)
   T.reverse()
-  print(T)
   for j in range(len(T)):
     for k in range(len(T[j])):
       if count==index:
@@ -72,13 +53,37 @@ def f(i,T):
   T.reverse()
   return Tableau(T)
 
+#lowering operators: input is a tableau T which we treat as a shuffle tableau
+def F(i,T):
+  #first cleans out i-paired is
+  T=listify(T)
+  for j in range(len(T)-2):
+    for k in range(min(len(T[j]),len(T[j+2]))):
+      if T[j][k]==i and T[j+2][k]==i+1:
+        T[j][k]=[i]
+        T[j+2][k]=[i+1]
+  T=Tableau(T)
+  T=f(i,T)
+  T=listify(T)
+  for j in range(len(T)):
+    for k in range(len(T[j])):
+      if type(T[j][k])==list:
+        T[j][k]=T[j][k][0]
+  return Tableau(T)
+
+
+
 #function to go from shuffle tableau -> tableau
 def phi(T):
+  T=clean(T)
   t=Tableau([])
   for i in range(len(T)):
     t_i=Tableau([list(T[i])])
     t=t_i.bump_multiply(t)
   return t
+
+T=Tableau([[None,1],[None,1],[1,2]])
+F(1,T)
 
 
 
