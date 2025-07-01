@@ -1,5 +1,5 @@
 ####code to test whether algorithms to go from shuffle tableaux -> tableaux are correct/commute with crystal operators
-#tableau use None to indicate emptyspace
+#tableau use None to indicate empty space
 
 def listify(T):
   T=list(T)
