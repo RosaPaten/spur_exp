@@ -3,10 +3,11 @@ import sage.combinat.permutation as permutation
 ###generates flagged Jacobi-Trudi matrix
 Sym = SymmetricFunctions(QQ)
 H = Sym.homogeneous()
-R=PolynomialRing(QQ, 3,'x')
+R=PolynomialRing(QQ, 4,'x')
 k = KeyPolynomials(R)
 SC = Sym.s()
 x=R.gens()
+jakob=SchubertPolynomialRing(QQ)
     
 def f(l,m,b,i,j):
   if l[i]-m[j]>0:
@@ -92,30 +93,34 @@ def Imm(w,X,n):
     imm=imm+prod
   return imm
 
-def test(N,flag):
+def test(N,flag,v):
     for i in range(1,N+1):
         
-        for j in range(1,i+1):
+        for j in range(1,i):
             
-            for K in range(1,j+1):
+            for K in range(1,j):
                 
-                for J in range(1,K+1):
+                for J in range(1,K):
                     
                     for L in range(1,i+1):
-                        for m in range(1,min(L,j)+1):
-                            for n in range(1,min(m,K)+1):
-                                for p in range(1,min(n,J)+1):
-                                    l=[i+10,j+10,K,J]
-                                    M=[L+10,m+10,n,p] 
+                        for m in range(1,min(L,j)):
+                            for n in range(1,min(m,K)):
+                                for p in range(1,min(n,J)):
+                                    l=[i,j,K,J]
+                                    M=[L,m,n,p] 
                               
                                     X=gen(l,M,flag)
-                                    h=Imm(G([1,2,4,3]),X,4)
-                                    print(h)
+                                    h=Imm(v,X,4)
+                                    #print(h)
                                     if h==1:
                                         print(h)
-                                    else:
-                                        print(k.from_polynomial(h))
-                                    
+                    
+                                    if h!=0:
+                                        print(k.from_polynomial(h).coefficients())
+                                        #print(len(jakob(h).coefficients())-len(k.from_polynomial(h).coefficients()))
+                                        #if len(jakob(h).coefficients())-len(k.from_polynomial(h).coefficients())>0:
+                                            #print(jakob(h).coefficients())
+                                            #print([l,M])
                                     
                             #C=0
                             #for v in G:
@@ -143,22 +148,23 @@ def test(N,flag):
 
 #l=[7,6,4,3]
 #m=[3,2,1,1]
-b=[2,3,2,3]
+b=[1,2,2,4]
 #X=gen(l,m,b)
 #w=[1,3,2]
 #v=[3,1,2]
 
 sum=0
-'''
+
 for v in DyckWords(4):
        v=v.to_321_avoiding_permutation()
-       h=Imm(v,X,4)
-       print(v)
-       print(k.from_polynomial(h))
-'''    
+       test(8,b,v)
+       #h=Imm(v,X,4)
+       #print(v)
+       #print(k.from_polynomial(h))
 
 
-test(6,b)
+
+#test(8,b)
 #print(k.from_polynomial(1))
 
 
