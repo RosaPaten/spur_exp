@@ -44,10 +44,10 @@ def reverse(l):
     return L
 
 ###given w,v\in Sym(n), computes f_w(v)
-S=SymmetricGroupAlgebra(QQ, 4)
-G=SymmetricGroup(4)
+S=SymmetricGroupAlgebra(QQ, 5)
+G=SymmetricGroup(5)
 s=G.simple_reflections()
-Alg=TemperleyLiebAlgebra(4,2,QQ)
+Alg=TemperleyLiebAlgebra(5,2,QQ)
 
 def genTL(i):
     d=[]
@@ -107,16 +107,20 @@ def test(N,flag,v):
                             for n in range(1,min(m,K)):
                                 for p in range(1,min(n,J)):
                                     l=[i,j,K,J]
-                                    M=[L,m,n,p] 
+                                    M=[L,m,n,p]
+                                    for a in range(1,J):
+                                        for b in range(1,min(a,p)):
+                                            l=[i,j,K,J,a]
+                                            M=[L,m,n,p,b]
                               
-                                    X=gen(l,M,flag)
-                                    h=Imm(v,X,4)
-                                    #print(h)
-                                    if h==1:
-                                        print(h)
+                                            X=gen(l,M,flag)
+                                            h=Imm(v,X,5)
+                                            #print(h)
+                                            if h==1:
+                                                print(h)
                     
-                                    if h!=0:
-                                        print(k.from_polynomial(h).coefficients())
+                                            if h!=0:
+                                                print(k.from_polynomial(h).coefficients())
                                         #print(len(jakob(h).coefficients())-len(k.from_polynomial(h).coefficients()))
                                         #if len(jakob(h).coefficients())-len(k.from_polynomial(h).coefficients())>0:
                                             #print(jakob(h).coefficients())
@@ -146,18 +150,19 @@ def test(N,flag,v):
                                       
                 
 
-#l=[7,6,4,3]
-#m=[3,2,1,1]
-b=[1,2,2,4]
+#l=[4,3,2,1]
+#m=[1,1,0,0]
+b=[2,2,2,4,4]
 #X=gen(l,m,b)
 #w=[1,3,2]
 #v=[3,1,2]
 
+
 sum=0
 
-for v in DyckWords(4):
+for v in DyckWords(5):
        v=v.to_321_avoiding_permutation()
-       test(8,b,v)
+       test(7,b,v)
        #h=Imm(v,X,4)
        #print(v)
        #print(k.from_polynomial(h))
