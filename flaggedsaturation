@@ -79,10 +79,30 @@ def c(nu,l1,m1,l2,m2,b,scale):
   for i in m2:
     M2.append(scale*i)
   for i in nu:
-    N.append(scale*nu)
+    N.append(scale*i)
   f=gen(L1,M1,b)*gen(L2,M2,b)
   f=SC.from_polynomial(len(l1))
   return f.coefficient(N)
+
+def keyc(a,l1,m1,l2,m2,b,scale):
+  L1=[]
+  M1=[]
+  L2=[]
+  M2=[]
+  A=[]
+  for i in l1:
+    L1.append(scale*i)
+  for i in m1:
+    M1.append(scale*i)
+  for i in l1:
+    L2.append(scale*i)
+  for i in m2:
+    M2.append(scale*i)
+  for i in a:
+    A.append(scale*i)
+  f=gen(L1,M1,b)*gen(L2,M2,b)
+  f=k.from_polynomial(f)
+  f.coefficient(A)
   
   
   
