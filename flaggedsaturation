@@ -33,20 +33,20 @@ def T(f,n):
   return f.pi(w)
 
 def f(l,m,b,i,j):
-  if l[i]-m[j]>0:
+  if l[i]-m[j]+j-i>0:
     if b[i]>1:
-      return H[l[i]-m[j]].expand(b[i])
+      return H[l[i]-m[j]+j-i].expand(b[i])
     else:
-      return x[0]^(l[i]-m[j])
-  if l[i]-m[j]==0:
+      return x[0]^(l[i]-m[j]+j-i)
+  if l[i]-m[j]+j-i==0:
       return 1
   else:
       return 0
 
 def g(l,m,i,j):
-    if l[i]-m[j]>0:
-       return H[l[i]-m[j]].expand(3)
-    elif l[i]-m[j]==0:
+    if l[i]-m[j]+j-i>0:
+       return H[l[i]-m[j]+j-i].expand(3)
+    elif l[i]-m[j]+j-i==0:
       return 1
     else:
       return 0
@@ -80,8 +80,10 @@ def c(nu,l1,m1,l2,m2,b,scale):
     M2.append(scale*i)
   for i in nu:
     N.append(scale*i)
-  f=gen(L1,M1,b)*gen(L2,M2,b)
-  f=SC.from_polynomial(len(l1))
+  f=k.from_polynomial(gen(L1,M1,b)*gen(L2,M2,b))
+  print(f)
+  f=T(gen(L1,M1,b)*gen(L2,M2,b),4).expand()
+  f=SC.from_polynomial(f)
   return f.coefficient(N)
 
 def keyc(a,l1,m1,l2,m2,b,scale):
@@ -102,10 +104,15 @@ def keyc(a,l1,m1,l2,m2,b,scale):
     A.append(scale*i)
   f=gen(L1,M1,b)*gen(L2,M2,b)
   f=k.from_polynomial(f)
-  f.coefficient(A)
-  
-  
-  
+  print(f)
+  return f.coefficient(A)
 
-f=x[0]^2
-T(f,5)
+m1=[1,0,0]
+m2=[2,1,0]
+l1=[3,2,1]
+l2=[3,1,1]
+nu=[3,4,1,0]
+scale=1
+b=[1,2,3]
+
+keyc(nu,l1,m1,l2,m2,b,scale)
