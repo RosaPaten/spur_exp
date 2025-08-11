@@ -107,6 +107,23 @@ def keyc(a,l1,m1,l2,m2,b,scale):
   print(f)
   return f.coefficient(A)
 
+def skewtest(a,l,m,b,scale):
+  L=[]
+  M=[]
+  A=[]
+  for i in l:
+    L.append(scale*i)
+  for i in m:
+    M.append(scale*i)
+  for i in a:
+    A.append(scale*i)
+  f=gen(L,M,b)
+  f=k.from_polynomial(f)
+  print(f)
+  return f.coefficient(A)
+
+    
+
 m1=[1,0,0]
 m2=[2,1,0]
 l1=[3,2,1]
