@@ -1,0 +1,16 @@
+G=SymmetricGroup(10)
+s=G.simple_reflections()
+
+
+def w(n,a):
+  prod=G.identity()
+  for i in range(a,n+1):
+    prod=s[i]*prod
+  return prod
+
+v=w(4,2)*w(5,2)*w(6,4)
+u=w(6,3)
+u.bruhat_le(v)
+
+  
+  
